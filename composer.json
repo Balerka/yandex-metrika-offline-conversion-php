@@ -2,6 +2,7 @@
     "name": "balerka/yandex-metrika-offline-conversion-php",
     "description": "Yandex Metrika Offline Conversion PHP APIv2",
     "type": "library",
+    "version": "1.0.0",
     "authors": [{
         "name": "Artem Iksanov, Balerka",
         "email": "iksanov@meiji.media",
