@@ -4,7 +4,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![PHP >=5.6](https://img.shields.io/badge/php-%3E%3D_5.6-orange.svg?style=flat-square)](https://git.meiji.media/meiji/yandex-metrika-offline-conversion-php)
 
-### Клиент для управения офлайн-данными Яндекс.Метрики используя API
+### Клиент для управления офлайн-данными Яндекс.Метрики используя API
 
 Документацию по доступным методам вскоре появится по [ссылке](https://meiji.media)
 
