@@ -2,7 +2,7 @@
 [![Packagist](https://img.shields.io/badge/package-balerka/yandex--metrika--offline--conversion--php-blue.svg?style=flat-square)](https://packagist.org/packages/balerka/yandex-metrika-offline-conversion-php)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/balerka/yandex-metrika-offline-conversion-php.svg?style=flat-square)](https://packagist.org/packages/balerka/yandex-metrika-offline-conversion-php)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![PHP >=8.0](https://img.shields.io/badge/php-%3E%3D_8.0-orange.svg?style=flat-square)]
+[PHP >=8.0](https://img.shields.io/badge/php-%3E%3D_8.0-orange.svg?style=flat-square)
 
 ### Клиент для управления офлайн-данными Яндекс.Метрики используя API
 
