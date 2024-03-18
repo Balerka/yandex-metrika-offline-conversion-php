@@ -1,83 +1,44 @@
 <?php
 
-namespace Meiji\YandexMetrikaOffline\Http;
+namespace Balerka\YandexMetrikaOfflineConversions\Http;
+use Balerka\YandexMetrikaOfflineConversions\tokenSession;
+use Balerka\YandexMetrikaOfflineConversions\ValueObject\ConversionFile;
+use Psr\Http\Message\ResponseInterface;
 
-use Meiji\YandexMetrikaOffline\Conversion;
-
-
-/**
- * Class Client
- *
- * @package Meiji\YandexMetrikaOffline\Http
- */
 class Client
 {
+	private string $token;
+	private ?string $contentType = null;
+	private array $multipart;
+	private string $url;
 	
-	/**
-	 * @var string
-	 */
-	private $token;
-	/**
-	 * @var string
-	 */
-	private $contentType;
-	/**
-	 * @var array
-	 */
-	private $multipart;
-	/**
-	 * @var string
-	 */
-	private $url;
-	
-	/**
-	 * Client constructor.
-	 *
-	 * @param string $token
-	 */
-	public function __construct($token)
+	public function __construct(string $token)
 	{
-		
 		$this->token = $token;
 	}
-	
-	/**
-	 * @param string $url
-	 *
-	 * @return $this
-	 */
-	public function setUrl($url)
-	{
-		
+
+	public function setUrl(string $url): static
+    {
 		$this->url = $url;
 		
 		return $this;
 	}
 	
-	/**
-	 * @param \Meiji\YandexMetrikaOffline\ValueObject\ConversionFile $file
-	 *
-	 * @return $this
-	 */
-	public function addFile(\Meiji\YandexMetrikaOffline\ValueObject\ConversionFile $file)
-	{
-		
+	public function addFile(ConversionFile $file): static
+    {
 		$this->contentType = 'multipart/form-data';
 		$this->multipart[] = $file->getArray();
 		
 		return $this;
 	}
-	
-	/**
-	 * @return \Psr\Http\Message\ResponseInterface
-	 */
-	public function requestPost()
-	{
+
+    public function request($method): ResponseInterface
+    {
 		
 		$guzzle = new \GuzzleHttp\Client([
 			'headers' => [
 				'Authorization' => 'OAuth ' . $this->token,
-				'User-Agent'    => 'MeijiYandexMetrikaOffline/' . Conversion::VERSION,
+				'User-Agent'    => 'BalerkaYandexMetrikaOfflineConversions/' . tokenSession::VERSION,
 				'Content-Type'  => $this->contentType
 			]
 		]);
@@ -87,10 +48,8 @@ class Client
 		if (!empty($this->multipart)) {
 			$optionsArray['multipart'] = $this->multipart;
 		}
-		
-		$response = $guzzle->post($this->url, $optionsArray);
-		
-		return $response;
+
+        return $guzzle->$method($this->url, $optionsArray);
 	}
 	
 }

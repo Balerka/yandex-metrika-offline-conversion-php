@@ -1,43 +1,24 @@
 <?php
 
-namespace Meiji\YandexMetrikaOffline\ValueObject;
+namespace Balerka\YandexMetrikaOfflineConversions\ValueObject;
 
+use ArrayIterator;
 
-/**
- * Class ConversionsIterator
- *
- * @package Meiji\YandexMetrikaOffline\ValueObject
- */
-class ConversionsIterator extends \ArrayIterator
+class ConversionsIterator extends ArrayIterator
 {
-	
-	/**
-	 * ConversionsIterator constructor.
-	 *
-	 * @param array $array
-	 * @param int   $flags
-	 */
-	public function __construct(array $array = [], $flags = 0)
+	public function __construct(array $array = [], int $flags = 0)
 	{
-		
 		parent::__construct($array, $flags);
 	}
 	
-	/**
-	 * @param array $columns
-	 *
-	 * @return string|null
-	 */
-	public function getString(array $columns = [])
-	{
-		
+	public function getString(array $columns = []): ?string
+    {
 		$conversionString = null;
 		foreach ($this as $key => $conversion) {
-			/** @var \Meiji\YandexMetrikaOffline\ValueObject\Conversion $conversion */
+			/** @var Conversion $conversion */
 			$conversionString .= $conversion->getString($columns) . (($key == count($this) - 1) ? null : PHP_EOL);
 		}
 		
 		return $conversionString;
 	}
-	
 }

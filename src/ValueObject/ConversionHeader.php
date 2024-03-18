@@ -1,79 +1,40 @@
 <?php
 
-namespace Meiji\YandexMetrikaOffline\ValueObject;
+namespace Balerka\YandexMetrikaOfflineConversions\ValueObject;
 
+use Balerka\YandexMetrikaOfflineConversions\Scope\Syntax;
 
-use Meiji\YandexMetrikaOffline\Scope\Upload;
-
-
-/**
- * Class ConversionHeader
- *
- * @package Meiji\YandexMetrikaOffline\ValueObject
- */
 class ConversionHeader
 {
-	
-	/**
-	 *
-	 */
 	const CLIENT_ID_TYPE_USER_COLUMN_NAME  = 'UserId';
-	/**
-	 *
-	 */
 	const CLIENT_ID_TYPE_CLIENT_COLUMN_NAME = 'ClientId';
-	/**
-	 *
-	 */
-	const CLIENT_ID_TYPE_YCLID_COLUMN_NAME = 'Yclid';
+    const CLIENT_ID_TYPE_YCL_COLUMN_NAME  = 'Yclid';
+	private static array $availableColumns = ['UserId', 'ClientId', 'Yclid', 'Target', 'DateTime', 'Price', 'Currency'];
 
-	/**
-	 * @var array
-	 */
-	private static $availableColumns = ['UserId', 'ClientId', 'Yclid', 'Target', 'DateTime', 'Price', 'Currency'];
+	private ?string $ClientIdType = null;
+	private mixed $usesColumns;
 	
-	/**
-	 * @var null
-	 */
-	private $ClientIdType;
-	/**
-	 * @var
-	 */
-	private $usesColumns;
-	
-	/**
-	 * ConversionHeader constructor.
-	 *
-	 * @param null $client_id_type
-	 */
 	public function __construct(&$client_id_type = null)
 	{
-		
 		$this->ClientIdType = &$client_id_type;
 		
 		$this->setDefaultUsesColumns();
 	}
-	
-	/**
-	 * @return string
-	 */
-	public function getString()
-	{
-		switch ($this->ClientIdType) {
-			case Upload::CLIENT_ID_TYPE_USER:
-				$typeColumnName = self::CLIENT_ID_TYPE_USER_COLUMN_NAME;
-				break;
 
-			default:
-			case Upload::CLIENT_ID_TYPE_CLIENT:
-				$typeColumnName = self::CLIENT_ID_TYPE_CLIENT_COLUMN_NAME;
-				break;
+	public function getString(): string
+    {
+	    switch ($this->ClientIdType) {
+            case Syntax::CLIENT_ID_TYPE_USER:
+                $typeColumnName = self::CLIENT_ID_TYPE_USER_COLUMN_NAME;
+                break;
+            case Syntax::CLIENT_ID_TYPE_CLIENT:
+                $typeColumnName = self::CLIENT_ID_TYPE_CLIENT_COLUMN_NAME;
+                break;
+            case Syntax::CLIENT_ID_TYPE_YCLID:
+                $typeColumnName = self::CLIENT_ID_TYPE_YCL_COLUMN_NAME;
+                break;
+        }
 
-			case Upload::CLIENT_ID_TYPE_YCLID:
-				$typeColumnName = self::CLIENT_ID_TYPE_YCLID_COLUMN_NAME;
-				break;
-		}
-		
 		$headerString = $typeColumnName;
 		foreach ($this->usesColumns as $columnName) {
 			$headerString .= "," . $columnName;
@@ -81,44 +42,28 @@ class ConversionHeader
 		
 		return $headerString;
 	}
-	
-	/**
-	 *
-	 */
-	public function setDefaultUsesColumns()
-	{
-		
+
+	public function setDefaultUsesColumns(): void
+    {
 		$this->usesColumns = [];
 		$this->addUsesColumn('Target');
 		$this->addUsesColumn('DateTime');
 	}
-	
-	/**
-	 * @param $name
-	 */
-	public function addUsesColumn($name)
-	{
-		
+
+	public function addUsesColumn($name): void
+    {
 		if (in_array($name, self::$availableColumns)) {
 			$this->usesColumns[] = $name;
 		}
 	}
-	
-	/**
-	 * @return mixed
-	 */
-	public function getUsesColumns()
-	{
-		
+
+	public function getUsesColumns(): mixed
+    {
 		return $this->usesColumns;
 	}
-	
-	/**
-	 * @return int
-	 */
-	public function count()
-	{
-		
+
+	public function count(): int
+    {
 		return count($this->usesColumns) + 1;
 	}
 	

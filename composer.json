@@ -1,9 +1,9 @@
 {
-    "name": "flamix/yandex-metrika-offline-conversion-php",
+    "name": "balerka/yandex-metrika-offline-conversion-php",
     "description": "Yandex Metrika Offline Conversion PHP APIv2",
     "type": "library",
     "authors": [{
-        "name": "Artem Iksanov",
+        "name": "Artem Iksanov, Balerka",
         "email": "iksanov@meiji.media",
         "homepage": "https://meiji.media"
     }],
@@ -11,12 +11,12 @@
     "minimum-stability": "dev",
     "require": {
         "guzzlehttp/guzzle": "^6|^7",
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-            "Meiji\\YandexMetrikaOffline\\": "src/"
+            "Balerka\\YandexMetrikaOfflineConversions\\": "src/"
         }
     }
 }

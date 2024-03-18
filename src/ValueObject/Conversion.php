@@ -1,49 +1,17 @@
 <?php
 
-namespace Meiji\YandexMetrikaOffline\ValueObject;
+namespace Balerka\YandexMetrikaOfflineConversions\ValueObject;
 
-
-/**
- * Class Conversion
- *
- * @package Meiji\YandexMetrikaOffline\ValueObject
- */
 class Conversion
 {
+	public string $ClientId;
+	public string $Target;
+	public string|int|null $DateTime;
+	public ?string $Price;
+	public ?string $Currency;
 	
-	/**
-	 * @var string
-	 */
-	public $ClientId;
-	/**
-	 * @var string
-	 */
-	public $Target;
-	/**
-	 * @var string|null
-	 */
-	public $DateTime;
-	/**
-	 * @var string|null
-	 */
-	public $Price;
-	/**
-	 * @var string|null
-	 */
-	public $Currency;
-	
-	/**
-	 * Conversion constructor.
-	 *
-	 * @param string      $ClientId
-	 * @param string      $Target
-	 * @param string|null $DateTime
-	 * @param string|null $Price
-	 * @param string|null $Currency
-	 */
-	public function __construct($ClientId, $Target, $DateTime = null, $Price = null, $Currency = null)
+	public function __construct(string $ClientId, string $Target, $DateTime = null, $Price = null, $Currency = null)
 	{
-		
 		if (!$DateTime) {
 			$DateTime = time();
 		}
@@ -54,15 +22,9 @@ class Conversion
 		$this->Price    = $Price;
 		$this->Currency = $Currency;
 	}
-	
-	/**
-	 * @param array $columns
-	 *
-	 * @return string
-	 */
-	public function getString(array $columns = [])
-	{
-		
+
+	public function getString(array $columns = []): string
+    {
 		$conversionString = $this->ClientId;
 		foreach ($columns as $columnName) {
 			$conversionString .= "," . $this->{$columnName};

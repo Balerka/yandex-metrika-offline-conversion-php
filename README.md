@@ -11,7 +11,7 @@
 _*Внимание!*_ API находится в стадии разработки.
 
 ## Installation
-Для того, чтобы подключить библиотеку в свой проект, можно воспользоваться [composer](https://getcomposer.org)
+Для того чтобы подключить библиотеку в свой проект, можно воспользоваться [composer](https://getcomposer.org)
 
 ```bash
 composer require rshkabko/yandex-metrika-offline-conversion-php
