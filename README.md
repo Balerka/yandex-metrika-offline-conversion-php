@@ -20,8 +20,8 @@ composer require balerka/yandex-metrika-offline-conversion-php
 
 При добавлении конверсии используется метод:
 ```
-\Meiji\YandexMetrikaOffline\Scope\Upload::addConversion(
-	$cid, 				// идентификатор посетителя сайта
+addConversion(
+	$clid, 				// идентификатор посетителя сайта
 	$target,  			// идентификатор цели
 	$dateTime = null, 	// дата и время конверсии в формате unix timestamp (по умолчанию - текущее)
 	$price = null, 		// цена (не обязательно)
@@ -30,14 +30,14 @@ composer require balerka/yandex-metrika-offline-conversion-php
 ```
 
 ```php
-use Meiji\YandexMetrikaOffline\Conversion;
+use Balerka\YandexMetrikaOfflineConversion\tokenSession;
 
 $oauthToken = 'dsERGE4564GBFDG34t3GDEREBbrgbdfbg4564DG3'; // OAuth-токен
 $counterId = 123456; // идентификатор счетчика
-$client_id_type = 'CLIENT_ID'; // или USER_ID / YCLID
+$client_id_type = Syntax::CLIENT_ID_TYPE_CLIENT; // или USER / YCLID
 
-$metrikaOffline = new \Meiji\YandexMetrikaOffline\Conversion($oauthToken);
-$metrikaConversionUpload = $metrikaOffline->upload($counterId, $client_id_type);
+$metrikaOffline = new tokenSession($oauthToken);
+$metrikaConversionUpload = $metrikaOffline->params($counterId, $client_id_type));
 $metrikaConversionUpload->comment('Комментарий к загрузке'); // Опционально
 
 $metrikaConversionUpload->addConversion('133591247640966458', 'GOAL1', '1481718166'); // Добавляем конверсию
